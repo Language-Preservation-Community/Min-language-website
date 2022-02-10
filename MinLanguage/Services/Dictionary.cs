@@ -10,6 +10,8 @@ namespace MinLanguage.Services
     {
         // Name of the region
         [Key]
+        public int Id { get; set; }
+
         public string name { get; set; }
         public string pronunciation { get; set; }
     }
@@ -30,7 +32,7 @@ namespace MinLanguage.Services
 
         public Vocabs()
         {
-            regionalPronunciations = new List<regionalPronunciation>;
+            regionalPronunciations = new List<regionalPronunciation>();
         }
         
     }

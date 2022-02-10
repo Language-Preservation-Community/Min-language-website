@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "BeginCollectionItem/1.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net35/BeginCollectionItem.dll": {}
+        },
+        "runtime": {
+          "lib/net35/BeginCollectionItem.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.21": {
         "type": "package",
         "compile": {
@@ -2714,6 +2723,20 @@
     }
   },
   "libraries": {
+    "BeginCollectionItem/1.2.1": {
+      "sha512": "VLUct5Hun7FFOe2PNp4Gn9QdyQvLmY5cdnUmzd/FOu0pNtypUJ0SnPM7XWhlhZ5KBa0ZxW30IJwUy+9POpHm0Q==",
+      "type": "package",
+      "path": "begincollectionitem/1.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "begincollectionitem.1.2.1.nupkg.sha512",
+        "begincollectionitem.nuspec",
+        "content/Views/Shared/EditorTemplates/Collection.cshtml",
+        "content/Views/Web.config.transform",
+        "lib/net35/BeginCollectionItem.dll"
+      ]
+    },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.21": {
       "sha512": "RUBS0JRh42/UpSw1x+8jYhNyzry1N95FiLKUt5AhPUUQjJcLxpBBY318H8qtbAF/FMXsuDBljMprij2VT6v8NA==",
       "type": "package",
@@ -8833,6 +8856,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "BeginCollectionItem >= 1.2.1",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 3.1.21",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.21",
       "Microsoft.AspNetCore.Identity.UI >= 3.1.21",
@@ -8885,6 +8909,10 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "BeginCollectionItem": {
+            "target": "Package",
+            "version": "[1.2.1, )"
+          },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
             "version": "[3.1.21, )"
@@ -8931,5 +8959,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BeginCollectionItem 1.2.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "BeginCollectionItem",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

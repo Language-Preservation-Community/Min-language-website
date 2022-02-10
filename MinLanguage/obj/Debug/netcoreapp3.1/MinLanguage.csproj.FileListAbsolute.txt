@@ -184,3 +184,4 @@ C:\Users\Iris\Documents\GitHub\Min-Language\MinLanguage\obj\Debug\netcoreapp3.1\
 C:\Users\Iris\Documents\GitHub\Min-Language\MinLanguage\obj\Debug\netcoreapp3.1\Razor\Views\Vocabs\Details.cshtml.g.cs
 C:\Users\Iris\Documents\GitHub\Min-Language\MinLanguage\obj\Debug\netcoreapp3.1\Razor\Views\Vocabs\Edit.cshtml.g.cs
 C:\Users\Iris\Documents\GitHub\Min-Language\MinLanguage\obj\Debug\netcoreapp3.1\Razor\Views\Vocabs\Index.cshtml.g.cs
+C:\Users\Iris\Documents\GitHub\Min-Language\MinLanguage\bin\Debug\netcoreapp3.1\BeginCollectionItem.dll

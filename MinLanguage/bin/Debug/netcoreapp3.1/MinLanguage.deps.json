@@ -31,6 +31,7 @@
     ".NETCoreApp,Version=v3.1": {
       "MinLanguage/1.0.0": {
         "dependencies": {
+          "BeginCollectionItem": "1.2.1",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.21",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.21",
           "Microsoft.AspNetCore.Identity.UI": "3.1.21",
@@ -306,6 +307,17 @@
         },
         "compile": {
           "MinLanguage.dll": {}
+        }
+      },
+      "BeginCollectionItem/1.2.1": {
+        "runtime": {
+          "lib/net35/BeginCollectionItem.dll": {
+            "assemblyVersion": "1.2.1.0",
+            "fileVersion": "1.2.1.0"
+          }
+        },
+        "compile": {
+          "lib/net35/BeginCollectionItem.dll": {}
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.21": {
@@ -3930,6 +3942,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "BeginCollectionItem/1.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VLUct5Hun7FFOe2PNp4Gn9QdyQvLmY5cdnUmzd/FOu0pNtypUJ0SnPM7XWhlhZ5KBa0ZxW30IJwUy+9POpHm0Q==",
+      "path": "begincollectionitem/1.2.1",
+      "hashPath": "begincollectionitem.1.2.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.21": {
       "type": "package",

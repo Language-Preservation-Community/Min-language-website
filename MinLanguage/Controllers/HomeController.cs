@@ -79,5 +79,14 @@ namespace MinLanguage.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+         
+        public ActionResult pronunciations()
+        {
+
+            return View();
+        }
+
+
+
     }
 }

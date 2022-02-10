@@ -30,36 +30,66 @@
             <th>
                 @Html.DisplayNameFor(model => model.category)
             </th>
-            <th></th>
+            @*@foreach (var word in model.regionalpronunciation)
+            { 
+            <th>
+                @html.displayfor(modelitem => word.name)
+                
+            </th>
+            }*@
+
+            
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.hanji)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.englishTranslation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.regionUsed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.exampleSentences)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.wordClass)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.category)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td rowspan="2">
+                    @Html.DisplayFor(modelItem => item.hanji)
+                </td>
+                <td rowspan="2">
+                    @Html.DisplayFor(modelItem => item.englishTranslation)
+                </td>
+                <td rowspan="2">
+                    @Html.DisplayFor(modelItem => item.regionUsed)
+                </td>
+                <td rowspan="2"d>
+                    @Html.DisplayFor(modelItem => item.exampleSentences)
+                </td>
+                <td rowspan="2">
+                    @Html.DisplayFor(modelItem => item.wordClass)
+                </td>
+                <td rowspan="2">
+                    @Html.DisplayFor(modelItem => item.category)
+                </td>
+                <td>@*name of region*@
+                    @foreach (var word in item.regionalPronunciations)
+                    {
+                    <td>
+                        @Html.DisplayFor(modelItem => word.pronunciation)
+                    </td>
+                    }
+
+                    </td>
+                    <td rowspan="2">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@*regional rponunciation*@
+                        @foreach (var word in item.regionalPronunciations)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => word.pronunciation)
+                            </td>
+                        }
+
+                    </td>
+                </tr>      
+                }
+        
     </tbody>
 </table>
