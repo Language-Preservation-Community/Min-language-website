@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CTKgouRQouhtgA7VE+0zOiHP+MiNA6w5txRuaxef7JcWgyFIgBEGWMB9r/noO8TFXuHQBGxIWbbxVHzGv/Js9g==",
+  "dgSpecHash": "R71ZvRTnkqLPD2uShGrLYaLtD+otRVeB45CN1iGq+XOeSgBS6mPJh1jzj08hYnRtIB4nu4n9Gjrhf8YvA1bUsA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Iris\\Documents\\GitHub\\Min-Language\\MinLanguage\\MinLanguage.csproj",
+  "projectFilePath": "C:\\Users\\Iris\\Documents\\GitHub\\Min-language-website\\MinLanguage\\MinLanguage.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Iris\\.nuget\\packages\\begincollectionitem\\1.2.1\\begincollectionitem.1.2.1.nupkg.sha512",
     "C:\\Users\\Iris\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.21\\microsoft.aspnetcore.cryptography.internal.3.1.21.nupkg.sha512",

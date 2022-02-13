@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Iris\\Documents\\GitHub\\Min-Language\\MinLanguage\\MinLanguage.csproj": {}
+    "C:\\Users\\Iris\\Documents\\GitHub\\Min-language-website\\MinLanguage\\MinLanguage.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Iris\\Documents\\GitHub\\Min-Language\\MinLanguage\\MinLanguage.csproj": {
+    "C:\\Users\\Iris\\Documents\\GitHub\\Min-language-website\\MinLanguage\\MinLanguage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Iris\\Documents\\GitHub\\Min-Language\\MinLanguage\\MinLanguage.csproj",
+        "projectUniqueName": "C:\\Users\\Iris\\Documents\\GitHub\\Min-language-website\\MinLanguage\\MinLanguage.csproj",
         "projectName": "MinLanguage",
-        "projectPath": "C:\\Users\\Iris\\Documents\\GitHub\\Min-Language\\MinLanguage\\MinLanguage.csproj",
+        "projectPath": "C:\\Users\\Iris\\Documents\\GitHub\\Min-language-website\\MinLanguage\\MinLanguage.csproj",
         "packagesPath": "C:\\Users\\Iris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Iris\\Documents\\GitHub\\Min-Language\\MinLanguage\\obj\\",
+        "outputPath": "C:\\Users\\Iris\\Documents\\GitHub\\Min-language-website\\MinLanguage\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
