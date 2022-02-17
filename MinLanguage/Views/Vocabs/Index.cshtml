@@ -31,14 +31,14 @@
                 @Html.DisplayNameFor(model => model.category)
             </th>
             @*@foreach (var word in model.regionalpronunciation)
-            { 
-            <th>
-                @html.displayfor(modelitem => word.name)
-                
-            </th>
+        {
             }*@
+            <th>
+                @Html.DisplayNameFor(model => model.regionalPronunciations[0].name)
+            </th>
 
-            
+
+
         </tr>
     </thead>
     <tbody>
@@ -73,9 +73,9 @@
 
                     </td>
                     <td rowspan="2">
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.key">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
                     </td>
                 </tr>
                 <tr>

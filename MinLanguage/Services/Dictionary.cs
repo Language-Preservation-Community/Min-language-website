@@ -10,7 +10,7 @@ namespace MinLanguage.Services
     {
         // Name of the region
         [Key]
-        public int Id { get; set; }
+        public int key { get; set; }
 
         public string name { get; set; }
         public string pronunciation { get; set; }
@@ -18,8 +18,8 @@ namespace MinLanguage.Services
 
     public class Vocabs
     {
-       
-        public int Id { get; set; }
+       [Key]
+        public int key { get; set; }
         public string hanji { get; set; }
         public string englishTranslation { get; set; }
 

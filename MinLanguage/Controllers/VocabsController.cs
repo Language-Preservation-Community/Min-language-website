@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ namespace MinLanguage.Controllers
         public VocabsController(ApplicationDbContext context)
         {
             _context = context;
+            
         }
 
         // GET: Vocabs
@@ -34,11 +36,20 @@ namespace MinLanguage.Controllers
             }
 
             var vocabs = await _context.Vocabs
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.key == id);
             if (vocabs == null)
             {
                 return NotFound();
             }
+
+            var regionA = new regionalPronunciation
+            {
+                name = "someregion",
+                pronunciation = "AHHHH1"
+            }; 
+            var regionalPronunciation = new List<regionalPronunciation>() { regionA};
+
+            vocabs.regionalPronunciations = regionalPronunciation;
 
             return View(vocabs);
         }
@@ -46,6 +57,36 @@ namespace MinLanguage.Controllers
         // GET: Vocabs/Create
         public IActionResult Create()
         {
+            return View();
+        }
+
+        public IActionResult RandomSite()
+        {
+            var test = _context.Vocabs.FirstOrDefault();
+            
+            var regionA = new regionalPronunciation
+            {
+                name = "someregion",
+                pronunciation = "AHHHH1"
+            };
+            var regionalPronunciation = new List<regionalPronunciation>() { regionA };
+
+            if (test == null)
+            {
+                test = new Vocabs
+                {
+                    hanji = "AHAHAHAHAH",
+                    englishTranslation = "",
+                    regionUsed = "",
+                    exampleSentences = "",
+                    wordClass = "",
+                    category = "",
+                    regionalPronunciations = regionalPronunciation
+                };
+            }
+
+            Debug.Write(test.hanji);
+
             return View();
         }
 
@@ -88,7 +129,7 @@ namespace MinLanguage.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,hanji,englishTranslation,regionUsed,exampleSentences,wordClass,category")] Vocabs vocabs)
         {
-            if (id != vocabs.Id)
+            if (id != vocabs.key)
             {
                 return NotFound();
             }
@@ -102,7 +143,7 @@ namespace MinLanguage.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VocabsExists(vocabs.Id))
+                    if (!VocabsExists(vocabs.key))
                     {
                         return NotFound();
                     }
@@ -125,7 +166,7 @@ namespace MinLanguage.Controllers
             }
 
             var vocabs = await _context.Vocabs
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.key == id);
             if (vocabs == null)
             {
                 return NotFound();
@@ -147,7 +188,7 @@ namespace MinLanguage.Controllers
 
         private bool VocabsExists(int id)
         {
-            return _context.Vocabs.Any(e => e.Id == id);
+            return _context.Vocabs.Any(e => e.key == id);
         }
     }
 }

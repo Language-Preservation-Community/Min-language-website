@@ -372,3 +372,4 @@ C:\Users\Iris\Documents\GitHub\Min-language-website\MinLanguage\obj\Debug\netcor
 C:\Users\Iris\Documents\GitHub\Min-language-website\MinLanguage\obj\Debug\netcoreapp3.1\MinLanguage.dll
 C:\Users\Iris\Documents\GitHub\Min-language-website\MinLanguage\obj\Debug\netcoreapp3.1\MinLanguage.pdb
 C:\Users\Iris\Documents\GitHub\Min-language-website\MinLanguage\obj\Debug\netcoreapp3.1\MinLanguage.genruntimeconfig.cache
+C:\Users\Iris\Documents\GitHub\Min-language-website\MinLanguage\obj\Debug\netcoreapp3.1\Razor\Views\Vocabs\RandomSite.cshtml.g.cs
