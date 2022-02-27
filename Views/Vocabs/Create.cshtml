@@ -1,0 +1,70 @@
+﻿@model MinLanguage.Services.Vocabs
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Vocabs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="hanji" class="control-label">Hanji 漢字</label>
+                <input asp-for="hanji" class="form-control" />
+                <span asp-validation-for="hanji" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="englishTranslation" class="control-label"> English Translations (meaning1; meaning2;) </label>
+                <input asp-for="englishTranslation" class="form-control" />
+                <span asp-validation-for="englishTranslation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="regionUsed" class="control-label">Region Used</label>
+                <input asp-for="regionUsed" class="form-control" />
+                <span asp-validation-for="regionUsed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="exampleSentences" class="control-label">Examples </label>
+                <input asp-for="exampleSentences" class="form-control" />
+                <span asp-validation-for="exampleSentences" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="wordClass" class="control-label"> Word class </label>
+                <input asp-for="wordClass" class="form-control" />
+                <span asp-validation-for="wordClass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="category" class="control-label"></label>
+                <input asp-for="category" class="form-control" />
+                <span asp-validation-for="category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="regionalPronunciations[0].name" class="control-label"></label>
+                <input asp-for="regionalPronunciations[0].name" class="form-control" />
+                <span asp-validation-for="regionalPronunciations[0].name" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="regionalPronunciations[0].pronunciation" class="control-label"></label>
+                <input asp-for="regionalPronunciations[0].pronunciation" class="form-control" />
+                <span asp-validation-for="regionalPronunciations[0].pronunciation" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
