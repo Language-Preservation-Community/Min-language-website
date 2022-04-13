@@ -1,0 +1,40 @@
+﻿@model Dictionary<string, bool>
+
+@{
+    ViewData["Title"] = "Change user roles";
+}
+
+<h1>Change user roles</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-id="@ViewContext.RouteData.Values["Id"]">
+            @if (Model == null)
+            {
+                <span>User with id not found</span>
+            }
+            else
+            {
+                <span>
+                    Current roles:
+                    @foreach (var item in Model)
+                    {
+                        if (item.Value)
+                        {
+                            <span> @item.Key</span>
+                        }
+                    }
+                </span>
+                foreach (var item in Model)
+                {
+                    <div class="form-group">
+                        <label>@item.Key @Html.CheckBox(item.Key, item.Value)</label>
+                    </div>
+                }
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            }
+        </form>
+    </div>
+</div>
+

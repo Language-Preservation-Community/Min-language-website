@@ -31,13 +31,14 @@ namespace MinLanguage
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider sp)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +66,18 @@ namespace MinLanguage
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            sp.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+            CreateRoles(sp).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider sp)
+        {
+            var roleManager = sp.GetRequiredService<RoleManager<IdentityRole>>();
+            if (!await roleManager.RoleExistsAsync("test"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("test"));
+            }
         }
     }
 }
