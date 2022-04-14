@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using MinLanguage.Services;
+using MinLanguage.Models;
 
 namespace MinLanguage.Data
 {
@@ -14,6 +11,6 @@ namespace MinLanguage.Data
         {
         }
         public DbSet<MinLanguage.Services.user> user { get; set; }
-        public DbSet<MinLanguage.Services.Vocabs> Vocabs { get; set; }
+        public DbSet<Vocabs> Vocabs { get; set; }
     }
 }

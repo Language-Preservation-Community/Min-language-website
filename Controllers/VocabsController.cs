@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MinLanguage.Data;
-using MinLanguage.Services;
+using MinLanguage.Models;
 
 namespace MinLanguage.Controllers
 {

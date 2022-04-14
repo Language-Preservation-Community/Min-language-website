@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MinLanguage.Services.Vocabs>
+﻿@model IEnumerable<MinLanguage.Models.Vocabs>
 
 @{
     ViewData["Title"] = "Index";
@@ -54,7 +54,7 @@
                 <td rowspan="2">
                     @Html.DisplayFor(modelItem => item.regionUsed)
                 </td>
-                <td rowspan="2"d>
+                <td rowspan="2">
                     @Html.DisplayFor(modelItem => item.exampleSentences)
                 </td>
                 <td rowspan="2">
@@ -66,30 +66,23 @@
                 <td>@*name of region*@
                     @foreach (var word in item.regionalPronunciations)
                     {
-                    <td>
                         @Html.DisplayFor(modelItem => word.pronunciation)
-                    </td>
                     }
-
-                    </td>
-                    <td rowspan="2">
-                        <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.key">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>@*regional rponunciation*@
-                        @foreach (var word in item.regionalPronunciations)
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => word.pronunciation)
-                            </td>
-                        }
-
-                    </td>
-                </tr>      
-                }
-        
+                </td>
+                <td rowspan="2">
+                    <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.key">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
+                </td>
+            </tr>
+            <tr>
+                <td>@*regional rponunciation*@
+                    @foreach (var word in item.regionalPronunciations)
+                    {
+                        @Html.DisplayFor(modelItem => word.pronunciation)
+                    }
+                </td>
+            </tr>      
+        }
     </tbody>
 </table>
