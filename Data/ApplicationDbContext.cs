@@ -12,5 +12,6 @@ namespace MinLanguage.Data
         }
         public DbSet<MinLanguage.Services.user> user { get; set; }
         public DbSet<Vocabs> Vocabs { get; set; }
+        public DbSet<regionalPronunciation> RegionalPronunciation { get; set; }
     }
 }

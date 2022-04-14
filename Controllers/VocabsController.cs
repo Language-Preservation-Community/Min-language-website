@@ -25,7 +25,7 @@ namespace MinLanguage.Controllers
         // GET: Vocabs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vocabs.ToListAsync());
+            return View(await _context.Vocabs.Include(m => m.regionalPronunciations).ToListAsync());
         }
 
         // GET: Vocabs/Details/5
@@ -37,20 +37,12 @@ namespace MinLanguage.Controllers
             }
 
             var vocabs = await _context.Vocabs
+                .Include(m => m.regionalPronunciations)
                 .FirstOrDefaultAsync(m => m.key == id);
             if (vocabs == null)
             {
                 return NotFound();
             }
-
-            var regionA = new regionalPronunciation
-            {
-                name = "someregion",
-                pronunciation = "AHHHH1"
-            }; 
-            var regionalPronunciation = new List<regionalPronunciation>() { regionA};
-
-            vocabs.regionalPronunciations = regionalPronunciation;
 
             return View(vocabs);
         }
@@ -98,7 +90,7 @@ namespace MinLanguage.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "test")]
-        public async Task<IActionResult> Create([Bind("Id,hanji,englishTranslation,regionUsed,exampleSentences,wordClass,category")] Vocabs vocabs)
+        public async Task<IActionResult> Create([Bind("Id,hanji,englishTranslation,regionUsed,exampleSentences,wordClass,category,regionalPronunciations")] Vocabs vocabs)
         {
             if (ModelState.IsValid)
             {
