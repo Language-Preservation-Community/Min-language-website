@@ -3,36 +3,49 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MinLanguage.Models
 {
-    public class regionalPronunciation
+    public class RegionalPronunciation
     {
         // Name of the region
         [Key]
-        public int key { get; set; }
+        public int Key { get; set; }
+        public string Name { get; set; }
+        public string Pronunciation { get; set; }
+        public string Hanji { get; set; }
+    }
 
-        public string name { get; set; }
-        public string pronunciation { get; set; }
+    public class RegionalSuggest
+    {
+        public int RegionalKey { get; set; }
+        public string Name { get; set; }
+        public string Pronunciation { get; set; }
+        public string Hanji { get; set; }
+        [Key]
+        public int Key { get; set; }
     }
 
     public class Vocabs
     {
        [Key]
-        public int key { get; set; }
-        public string hanji { get; set; }
-        public string englishTranslation { get; set; }
-
-        public string regionUsed { get; set; }
-        public string exampleSentences { get; set; }
-        public string wordClass { get; set; }
-        public string category { get; set; }
-
-        public List <regionalPronunciation> regionalPronunciations  {get; set;}
-
-        public Vocabs()
-        {
-            regionalPronunciations = new List<regionalPronunciation>();
-        }
-        
+        public int Key { get; set; }
+        public string EnglishTranslation { get; set; }
+        public string RegionUsed { get; set; }
+        public string ExampleSentences { get; set; }
+        public string WordClass { get; set; }
+        public string Category { get; set; }
+        public List<RegionalPronunciation> RegionalPronunciations { get; set; }
     }
 
-
+    public class VocabsSuggest
+    {
+        public int VocabsKey { get; set; }
+        public string EnglishTranslation { get; set; }
+        public string RegionUsed { get; set; }
+        public string ExampleSentences { get; set; }
+        public string WordClass { get; set; }
+        public string Category { get; set; }
+        public List<RegionalSuggest> RegionalPronunciations { get; set; }
+        [Key]
+        public int Key { get; set; }
+        public string UserId { get; set; }
+    }
 }

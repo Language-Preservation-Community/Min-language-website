@@ -13,28 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.hanji)
+                @Html.DisplayNameFor(model => model.EnglishTranslation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.englishTranslation)
+                @Html.DisplayNameFor(model => model.RegionUsed)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.regionUsed)
+                @Html.DisplayNameFor(model => model.ExampleSentences)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.exampleSentences)
+                @Html.DisplayNameFor(model => model.WordClass)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.wordClass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.category)
+                @Html.DisplayNameFor(model => model.Category)
             </th>
             @*@foreach (var word in model.regionalpronunciation)
         {
             }*@
             <th>
-                @Html.DisplayNameFor(model => model.regionalPronunciations[0].name)
+                @Html.DisplayNameFor(model => model.RegionalPronunciations[0].Name)
             </th>
 
 
@@ -46,40 +43,37 @@
         {
             <tr>
                 <td rowspan="2">
-                    @Html.DisplayFor(modelItem => item.hanji)
+                    @Html.DisplayFor(modelItem => item.EnglishTranslation)
                 </td>
                 <td rowspan="2">
-                    @Html.DisplayFor(modelItem => item.englishTranslation)
+                    @Html.DisplayFor(modelItem => item.RegionUsed)
                 </td>
                 <td rowspan="2">
-                    @Html.DisplayFor(modelItem => item.regionUsed)
+                    @Html.DisplayFor(modelItem => item.ExampleSentences)
                 </td>
                 <td rowspan="2">
-                    @Html.DisplayFor(modelItem => item.exampleSentences)
+                    @Html.DisplayFor(modelItem => item.WordClass)
                 </td>
                 <td rowspan="2">
-                    @Html.DisplayFor(modelItem => item.wordClass)
-                </td>
-                <td rowspan="2">
-                    @Html.DisplayFor(modelItem => item.category)
+                    @Html.DisplayFor(modelItem => item.Category)
                 </td>
                 <td>@*name of region*@
-                    @foreach (var word in item.regionalPronunciations)
+                    @foreach (var word in item.RegionalPronunciations)
                     {
-                        @Html.DisplayFor(modelItem => word.pronunciation)
+                        @Html.DisplayFor(modelItem => word.Pronunciation)
                     }
                 </td>
                 <td rowspan="2">
-                    <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.key">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Key">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Key">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Key">Delete</a>
                 </td>
             </tr>
             <tr>
                 <td>@*regional rponunciation*@
-                    @foreach (var word in item.regionalPronunciations)
+                    @foreach (var word in item.RegionalPronunciations)
                     {
-                        @Html.DisplayFor(modelItem => word.pronunciation)
+                        @Html.DisplayFor(modelItem => word.Pronunciation)
                     }
                 </td>
             </tr>      

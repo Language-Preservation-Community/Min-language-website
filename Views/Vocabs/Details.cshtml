@@ -11,53 +11,59 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.hanji)
+            @Html.DisplayNameFor(model => model.EnglishTranslation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.hanji)
+            @Html.DisplayFor(model => model.EnglishTranslation)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.englishTranslation)
+            @Html.DisplayNameFor(model => model.RegionUsed)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.englishTranslation)
+            @Html.DisplayFor(model => model.RegionUsed)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.regionUsed)
+            @Html.DisplayNameFor(model => model.ExampleSentences)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.regionUsed)
+            @Html.DisplayFor(model => model.ExampleSentences)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.exampleSentences)
+            @Html.DisplayNameFor(model => model.WordClass)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.exampleSentences)
+            @Html.DisplayFor(model => model.WordClass)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.wordClass)
+            @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.wordClass)
+            @Html.DisplayFor(model => model.Category)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.category)
-        </dd>
-        @for (int i = 0; i < Model.regionalPronunciations.Count; i++)
+        @for (int i = 0; i < Model.RegionalPronunciations.Count; i++)
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.regionalPronunciations[i].pronunciation)
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RegionalPronunciations[i].Name)
             </dt>
-            <dd>
-                @Html.TextBoxFor(model => model.regionalPronunciations[i].pronunciation)
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RegionalPronunciations[i].Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RegionalPronunciations[i].Pronunciation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RegionalPronunciations[i].Pronunciation)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RegionalPronunciations[i].Hanji)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RegionalPronunciations[i].Hanji)
             </dd>
         }
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.key">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Key">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
