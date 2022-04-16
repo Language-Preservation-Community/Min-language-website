@@ -36,9 +36,7 @@ namespace MinLanguage.Controllers
                 return NotFound();
             }
 
-            var vocabs = await _context.Vocabs
-                .Include(m => m.RegionalPronunciations)
-                .FirstOrDefaultAsync(m => m.Key == id);
+            var vocabs = await GetVocabsWithRegional((int)id);
             if (vocabs == null)
             {
                 return NotFound();
@@ -151,9 +149,10 @@ namespace MinLanguage.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VocabsExists(int id)
-        {
-            return _context.Vocabs.Any(e => e.Key == id);
-        }
+        private Task<Vocabs> GetVocabsWithRegional(int id) => _context.Vocabs
+            .Include(m => m.RegionalPronunciations)
+            .FirstOrDefaultAsync(m => m.Key == id);
+
+        private bool VocabsExists(int id) => _context.Vocabs.Any(e => e.Key == id);
     }
 }

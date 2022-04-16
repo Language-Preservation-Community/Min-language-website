@@ -1,16 +1,16 @@
 ﻿@model MinLanguage.Models.VocabsSuggest
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Suggest new word";
 }
 
-<h1>Create</h1>
+<h1>Suggest new word</h1>
 
 <h4>VocabsSuggest</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="SuggestNew">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="VocabsKey" class="control-label"></label>
