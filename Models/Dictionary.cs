@@ -15,7 +15,7 @@ namespace MinLanguage.Models
 
     public class RegionalSuggest
     {
-        public int RegionalKey { get; set; }
+        public int? RegionalKey { get; set; }
         public string Name { get; set; }
         public string Pronunciation { get; set; }
         public string Hanji { get; set; }
@@ -23,7 +23,7 @@ namespace MinLanguage.Models
         public int Key { get; set; }
         public RegionalPronunciation GetRegionalPronunciation() => new RegionalPronunciation()
         {
-            Key = RegionalKey,
+            Key = RegionalKey ?? 0,
             Name = Name,
             Pronunciation = Pronunciation,
             Hanji = Hanji

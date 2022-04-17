@@ -36,8 +36,7 @@ namespace MinLanguage.Controllers
                 return NotFound();
             }
 
-            var vocabsSuggest = await _context.VocabsSuggest
-                .FirstOrDefaultAsync(m => m.Key == id);
+            var vocabsSuggest = await GetVocabsSuggestWithRegionalNoTrack((int)id);
             if (vocabsSuggest == null)
             {
                 return NotFound();
@@ -61,6 +60,10 @@ namespace MinLanguage.Controllers
         {
             if (!ModelState.IsValid)
             {
+                if (vocabsSuggest.RegionalPronunciations == null)
+                {
+                    vocabsSuggest.RegionalPronunciations = new List<RegionalSuggest>();
+                }
                 return View(vocabsSuggest);
             }
             vocabsSuggest.VocabsKey = null;
@@ -72,7 +75,7 @@ namespace MinLanguage.Controllers
 
         public async Task<IActionResult> SuggestChange(int id)
         {
-            var vocab = await GetVocabsWithRegional(id);
+            var vocab = await GetVocabsWithRegionalNoTrack(id);
             if (vocab == null)
             {
                 return NotFound();
@@ -86,10 +89,41 @@ namespace MinLanguage.Controllers
         {
             if (!ModelState.IsValid || !await IsVocabValid(vocabsSuggest))
             {
+                if (vocabsSuggest.RegionalPronunciations == null)
+                {
+                    vocabsSuggest.RegionalPronunciations = new List<RegionalSuggest>();
+                }
                 return View(vocabsSuggest);
             }
+
             vocabsSuggest.UserId = await GetUserId();
             _context.Add(vocabsSuggest);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> SuggestRegional(int id)
+        {
+            var vocabsSuggest = await GetVocabsSuggestNoTrack(id);
+            if (vocabsSuggest == null || vocabsSuggest.UserId != await GetUserId())
+            {
+                return NotFound();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SuggestRegional(int id, RegionalSuggest regionalSuggest)
+        {
+            var vocabsSuggest = await GetVocabsSuggestWithRegional(id);
+            if (vocabsSuggest == null || vocabsSuggest.UserId != await GetUserId())
+            {
+                return NotFound();
+            }
+            regionalSuggest.RegionalKey = null;
+            vocabsSuggest.RegionalPronunciations.Add(regionalSuggest);
+            _context.Update(vocabsSuggest);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -97,7 +131,7 @@ namespace MinLanguage.Controllers
         // GET: VocabsSuggests/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var vocabsSuggest = await GetVocabsSuggestWithRegional(id);
+            var vocabsSuggest = await GetVocabsSuggestWithRegionalNoTrack(id);
             if (vocabsSuggest == null || vocabsSuggest.UserId != await GetUserId())
             {
                 return NotFound();
@@ -112,17 +146,29 @@ namespace MinLanguage.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, VocabsSuggest vocabsSuggest)
         {
-            if (!ModelState.IsValid || id != vocabsSuggest.Key)
+            if (!ModelState.IsValid || id != vocabsSuggest.Key || vocabsSuggest.RegionalPronunciations == null)
             {
                 return View(vocabsSuggest);
             }
-            var original = await GetVocabsSuggestWithRegional(id);
-            if (original == null || original.UserId != await GetUserId() || !await IsVocabValid(vocabsSuggest))
+            // tracking will result in both original and vocabsSuggest being tracked
+            var original = await GetVocabsSuggestWithRegionalNoTrack(id);
+            if (original == null || original.UserId != await GetUserId())
+            {
+                return View(vocabsSuggest);
+            }
+            var origKeys = original.RegionalPronunciations.ConvertAll(r => r.Key);
+            var newKeys = vocabsSuggest.RegionalPronunciations.ConvertAll(r => r.Key);
+            if (!ListValid(origKeys, newKeys, false))
             {
                 return View(vocabsSuggest);
             }
 
             vocabsSuggest.UserId = await GetUserId();
+            var originalRegionalKeys = original.RegionalPronunciations.ToDictionary(r => r.Key, r => r.RegionalKey);
+            foreach (var regional in vocabsSuggest.RegionalPronunciations)
+            {
+                regional.RegionalKey = originalRegionalKeys[regional.Key];
+            }
             try
             {
                 _context.Update(vocabsSuggest);
@@ -179,7 +225,7 @@ namespace MinLanguage.Controllers
                 return NotFound();
             }
 
-            var vocabsSuggest = await GetVocabsSuggestWithRegional((int)id);
+            var vocabsSuggest = await GetVocabsSuggestWithRegionalNoTrack((int)id);
             if (vocabsSuggest == null)
             {
                 return NotFound();
@@ -214,27 +260,62 @@ namespace MinLanguage.Controllers
             {
                 return false;
             }
-            var vocab = await GetVocabsWithRegional((int)vocabsSuggest.VocabsKey);
+            var vocab = await GetVocabsWithRegionalNoTrack((int)vocabsSuggest.VocabsKey);
             if (vocab == null)
             {
                 return false;
             }
-            var regionalKeys = vocab.RegionalPronunciations.ConvertAll(r => r.Key).ToHashSet();
-            foreach (var regional in vocabsSuggest.RegionalPronunciations)
+            var originalKeys = vocab.RegionalPronunciations.ConvertAll<int?>(r => r.Key);
+            var newKeys = vocabsSuggest.RegionalPronunciations.ConvertAll(r => r.RegionalKey);
+            if (!ListValid(originalKeys, newKeys, true))
             {
-                if (!regionalKeys.Contains(regional.RegionalKey))
+                return false;
+            }
+            return true;
+        }
+
+        // Checks if each element in new is (either null or) in original
+        // and if new has no repeats
+        private static bool ListValid<E>(IEnumerable<E> origList, IEnumerable<E> newList, bool nullAllowed)
+        {
+            var origSet = origList.ToHashSet();
+            var newSet = new HashSet<E>();
+            foreach (var newItem in newList)
+            {
+                if (newItem == null)
                 {
-                    return false;
+                    if (!nullAllowed)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!origSet.Contains(newItem) || newSet.Contains(newItem))
+                    {
+                        return false;
+                    }
+                    newSet.Add(newItem);
                 }
             }
             return true;
         }
 
-        private Task<Vocabs> GetVocabsWithRegional(int id) => _context.Vocabs
-            .Include(m => m.RegionalPronunciations)
+        private Task<VocabsSuggest> GetVocabsSuggestNoTrack(int id) => _context.VocabsSuggest
+            .AsNoTracking()
             .FirstOrDefaultAsync(m => m.Key == id);
 
         private Task<VocabsSuggest> GetVocabsSuggestWithRegional(int id) => _context.VocabsSuggest
+            .Include(m => m.RegionalPronunciations)
+            .FirstOrDefaultAsync(m => m.Key == id);
+
+        private Task<VocabsSuggest> GetVocabsSuggestWithRegionalNoTrack(int id) => _context.VocabsSuggest
+            .AsNoTracking()
+            .Include(m => m.RegionalPronunciations)
+            .FirstOrDefaultAsync(m => m.Key == id);
+
+        private Task<Vocabs> GetVocabsWithRegionalNoTrack(int id) => _context.Vocabs
+            .AsNoTracking()
             .Include(m => m.RegionalPronunciations)
             .FirstOrDefaultAsync(m => m.Key == id);
 
