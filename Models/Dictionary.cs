@@ -47,6 +47,7 @@ namespace MinLanguage.Models
         public string WordClass { get; set; }
         public string Category { get; set; }
         public List<RegionalPronunciation> RegionalPronunciations { get; set; }
+        public string Note { get; set; }
     }
 
     public class VocabsSuggest
@@ -58,6 +59,7 @@ namespace MinLanguage.Models
         public string WordClass { get; set; }
         public string Category { get; set; }
         public List<RegionalSuggest> RegionalPronunciations { get; set; }
+        public string Note { get; set; }
         [Key]
         public int Key { get; set; }
         public string UserId { get; set; }
