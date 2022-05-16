@@ -11,5 +11,8 @@ namespace LearnLanguagesWebsite.Models
         // The Chinese characters responsible for the meaning
         public string Hanji;
         public string Pronunciation;
+
+
+        public string AudioLink;
     }
 }

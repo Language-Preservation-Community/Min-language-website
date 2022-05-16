@@ -27,6 +27,22 @@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
+            <div class="container">
+                @using (Html.BeginForm("CategoryChosen", "Home", FormMethod.Get))
+                {
+                    <fieldset>
+
+                        <h2> Language Chosen </h2>
+
+                        <p>
+                            Current Language @LearnLanguagesWebsite.Services.LanguagesInfo.GetSomething
+                        </p>
+
+                        @Html.DropDownList("LanguageList", @LearnLanguagesWebsite.Services.LanguagesInfo.GetAllLanguages)
+
+                    </fieldset>
+                }
+            </div>
         </div>
     </div>
     <div class="container body-content">

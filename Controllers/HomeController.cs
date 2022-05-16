@@ -8,8 +8,10 @@ namespace LearnLanguagesWebsite.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
+            // SetSelectedLanguage(AllAvailableLanguages.English);
             return View();
         }
 
@@ -26,5 +28,17 @@ namespace LearnLanguagesWebsite.Controllers
 
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult CategoryChosen(AllAvailableLanguages selectedLanguage)
+        //{
+        //    SetSelectedLanguage(selectedLanguage);
+
+        //    return View();
+        //}
+
+
+        
+
     }
 }
