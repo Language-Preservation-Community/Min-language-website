@@ -28,20 +28,23 @@
                 @Html.Partial("_LoginPartial")
             </div>
             <div class="container">
-                @using (Html.BeginForm("CategoryChosen", "Home", FormMethod.Get))
-                {
+                
                     <fieldset>
 
                         <h2> Language Chosen </h2>
 
                         <p>
-                            Current Language @LearnLanguagesWebsite.Services.LanguagesInfo.GetSomething
+                            Current Language @LearnLanguagesWebsite.Services.LanguagesInfo.SelectedLanguage.ToString()
                         </p>
 
-                        @Html.DropDownList("LanguageList", @LearnLanguagesWebsite.Services.LanguagesInfo.GetAllLanguages)
+                        @*Resources on how to use Static Variable*@
+                        @*https://stackoverflow.com/questions/17271827/using-static-variables-in-razor*@
+
+                        @Html.DropDownList("LanguageList", @LearnLanguagesWebsite.Services.LanguagesInfo.GetAllLanguages
+                         , new { @onchange = "CallChangeLanguage(this.value)" })
 
                     </fieldset>
-                }
+                
             </div>
         </div>
     </div>
@@ -53,8 +56,35 @@
         </footer>
     </div>
 
+    <script>
+        function CallChangeLanguage(value) {
+            // Ajax is a way to pass information from frontend to backend
+            // Is not hard at all, don't get scared by the numbers of lines it have
+            console.log("Pass through function!\nValue: " + value);
+            var languageSelected = { 'selectedLanguage': value };
+            $.ajax({
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                type: 'POST',
+                url: '/home/CategoryChosen',
+                data: JSON.stringify(languageSelected),
+                success: function () {
+                    alert("Change Languaged");
+                },
+                error: function (e) {
+                    alert( "Error Happened" + e.responsetext);
+                }
+            })
+
+            // This part of the code will redirect the site to the function then redirect to the language user selected
+            var url = '@Html.Raw(Url.Action("RedirectWhenLanguageChange", "Home"))';
+            window.location = url;
+        };
+    </script>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

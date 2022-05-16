@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Services;
+using System.Web.Services;
+using static LearnLanguagesWebsite.Services.LanguagesInfo;
 
 namespace LearnLanguagesWebsite.Controllers
 {
@@ -29,16 +32,42 @@ namespace LearnLanguagesWebsite.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult CategoryChosen(AllAvailableLanguages selectedLanguage)
-        //{
-        //    SetSelectedLanguage(selectedLanguage);
+        public ActionResult RedirectWhenLanguageChange()
+        {
+            switch(SelectedLanguage)
+            {
+                case AllAvailableLanguages.English:
+                    return View("Index");
+                default:
+                    return View("About");
+            }
+        }
 
-        //    return View();
-        //}
+        [HttpPost]
+        public JsonResult CategoryChosen(string selectedLanguage)
+        {
+            // The enum will try to convert the string from the form to the AllAvailableLanguagesEnum
+            // If the Enum failed, it won't do anything which it shouldn't happens
+            if (Enum.TryParse(selectedLanguage, out AllAvailableLanguages selectedLanguageEnum))
+            {
+                Console.WriteLine("Successfulll");
+                SetSelectedLanguage(selectedLanguageEnum);
+            }
+            else
+            {
+                Console.WriteLine("Failed");
+            }
+
+            // RedirectToRoute("About", "Home");
+
+            // Depending
+            return Json(selectedLanguage);
+        }
 
 
-        
+
+
+
 
     }
 }
