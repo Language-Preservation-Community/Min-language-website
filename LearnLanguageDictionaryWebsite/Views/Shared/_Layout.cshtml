@@ -32,7 +32,7 @@
 
                 <fieldset>
 
-                    <h2> Language Chosen </h2>
+                    <h2> Language Chosen </h2> 
 
                     <p>
                         Current Language @LearnLanguagesDictionaryWebsite.Services.LanguagesInfo.SelectedLanguage.ToString()
@@ -65,14 +65,16 @@
         function CallChangeLanguage(value) {
             // Ajax is a way to pass information from frontend to backend
             // Is not hard at all, don't get scared by the numbers of lines it have
-            console.log("Pass through function!\nValue: " + value);
-            var languageSelected = { 'selectedLanguage': value };
+            console.log("Pass through function!\nValue: "+ value);
+
+            var selectedLanguage = { "selectedLanguage": value };
+            console.log("\nValue: " + selectedLanguage);
             $.ajax({
                 contentType: "application/json;charset=utf-8",
                 dataType: 'json',
                 type: 'POST',
                 url: '/home/CategoryChosen',
-                data: JSON.stringify(languageSelected),
+                data: JSON.stringify(value),
                 success: function () {
                     alert("Change Languaged");
                     // This part of the code will redirect the site to the function then redirect to the language user selected

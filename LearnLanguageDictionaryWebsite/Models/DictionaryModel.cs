@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LearnLanguagesWebsite.Models
+namespace LearnLanguagesDictionaryWebsite.Models
 {
     // Programmer will only refer to here
     // The frontend will only need access to Dictionary and access to the data within it

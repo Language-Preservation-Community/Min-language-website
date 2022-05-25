@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LearnLanguagesWebsite.Models
+namespace LearnLanguagesDictionaryWebsite.Models
 {
     // The members are arranged in the order they will appear
     // So english meaning will appear in first column, then example sentences, the vocabs

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LearnLanguagesWebsite.Models
+namespace LearnLanguagesDictionaryWebsite.Models
 {
     public class RegionalPronunciationModel
     {
