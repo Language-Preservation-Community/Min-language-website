@@ -70,15 +70,14 @@
                 data: JSON.stringify(languageSelected),
                 success: function () {
                     alert("Change Languaged");
+                    // This part of the code will redirect the site to the function then redirect to the language user selected
+                    var url = '@Html.Raw(Url.Action("RedirectWhenLanguageChange", "Home"))';
+                    window.location = url;
                 },
                 error: function (e) {
                     alert( "Error Happened" + e.responsetext);
                 }
             })
-
-            // This part of the code will redirect the site to the function then redirect to the language user selected
-            var url = '@Html.Raw(Url.Action("RedirectWhenLanguageChange", "Home"))';
-            window.location = url;
         };
     </script>
 

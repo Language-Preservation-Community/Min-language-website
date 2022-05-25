@@ -39,7 +39,8 @@ namespace LearnLanguagesWebsite.Controllers
                 case AllAvailableLanguages.English:
                     return View("Index");
                 default:
-                    return View("About");
+                    // Using Relative Path to get into the view
+                    return View("../Language/Hakka/Index");
             }
         }
 
