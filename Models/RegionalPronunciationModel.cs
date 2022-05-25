@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LearnLanguagesWebsite.Models
 {
-    public class RegionalPronunciation
+    public class RegionalPronunciationModel
     {
         public int ID;
         // The Chinese characters responsible for the meaning

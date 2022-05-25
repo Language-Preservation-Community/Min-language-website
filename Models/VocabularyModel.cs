@@ -7,7 +7,7 @@ namespace LearnLanguagesWebsite.Models
 {
     // The members are arranged in the order they will appear
     // So english meaning will appear in first column, then example sentences, the vocabs
-    public class Vocabulary
+    public class VocabularyModel
     {
         // This is for the Key
         public int ID;
@@ -19,7 +19,7 @@ namespace LearnLanguagesWebsite.Models
         // If the key contains regional pronunciation, it will be added to the view.
         // If it doesn't, it will leave it blank
         // We won't get any errors, this way
-        public Dictionary<string, RegionalPronunciation> RegionalWords;
+        public Dictionary<string, RegionalPronunciationModel> RegionalWords;
 
         // Additional note if the user want to add something to note about for certain words
         // like sentence structure or grammer is different when certain words is used in Ph Hokkien
