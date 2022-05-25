@@ -44,6 +44,26 @@ namespace LearnLanguagesWebsite.Controllers
             }
         }
 
+        public ActionResult Language(string language)
+        {
+            if (language.Equals(AllAvailableLanguages.English.ToString()))
+            {
+
+            }
+
+            switch (language)
+            {
+                case "AHHH":
+                    break;
+
+                case AllAvailableLanguages.English.ToString():
+                    return View("Index");
+                default:
+                    // Using Relative Path to get into the view
+                    return View("../Language/Hakka/Index");
+            }
+        }
+
         [HttpPost]
         public JsonResult CategoryChosen(string selectedLanguage)
         {
