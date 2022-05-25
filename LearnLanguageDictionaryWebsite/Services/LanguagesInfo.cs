@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LearnLanguagesWebsite.Services
+namespace LearnLanguagesDictionaryWebsite.Services
 {
     public class LanguagesInfo
     {

@@ -28,6 +28,25 @@
                     </ul>
                 </div>
             </div>
+            <div class="container">
+
+                <fieldset>
+
+                    <h2> Language Chosen </h2>
+
+                    <p>
+                        Current Language @LearnLanguagesDictionaryWebsite.Services.LanguagesInfo.SelectedLanguage.ToString()
+                    </p>
+
+                    @*Resources on how to use Static Variable*@
+                    @*https://stackoverflow.com/questions/17271827/using-static-variables-in-razor*@
+
+                    @Html.DropDownList("LanguageList", LearnLanguagesDictionaryWebsite.Services.LanguagesInfo.GetAllLanguages
+                     , new { @onchange = "CallChangeLanguage(this.value)" })
+
+                </fieldset>
+
+            </div>
         </nav>
     </header>
     <div class="container">
