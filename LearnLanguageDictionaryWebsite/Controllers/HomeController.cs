@@ -31,7 +31,7 @@ namespace LearnLanguageDictionaryWebsite.Controllers
         }
 
         // In the front end, they will pass in the value
-        // Home/Language?name=(Hokkien)
+        // GET: Home/Language?name=(Hokkien)
         // Ignore the bracket, that is how you go to different pages :D
         public ActionResult Language(string Name)
         {

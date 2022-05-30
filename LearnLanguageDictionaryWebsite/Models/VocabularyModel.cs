@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace LearnLanguagesDictionaryWebsite.Models
     public class VocabularyModel
     {
         // This is for the Key
+        [Key]
         public int ID;
 
         public string EnglishMeaning;
@@ -20,6 +22,11 @@ namespace LearnLanguagesDictionaryWebsite.Models
         // If it doesn't, it will leave it blank
         // We won't get any errors, this way
         public Dictionary<string, RegionalPronunciationModel> RegionalWords;
+
+        // This variable will be keeping track all regions, so we can display properly on the view page
+        // If when a user add a new region, it will be added to this list
+        // We will do a check when User Suggest a new vocab and going to be added
+        public List<string> AllRegion;
 
         // Additional note if the user want to add something to note about for certain words
         // like sentence structure or grammer is different when certain words is used in Ph Hokkien
