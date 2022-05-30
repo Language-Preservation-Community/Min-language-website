@@ -1,4 +1,6 @@
 ﻿using LearnLanguageDictionaryWebsite.Models;
+using LearnLanguagesDictionaryWebsite.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -17,6 +19,9 @@ namespace LearnLanguageDictionaryWebsite.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            // It will start with English
+            // Session acting like cookies and will store user information
+            SelectedLanguage = AllAvailableLanguages.English;
             _logger = logger;
         }
 
@@ -25,59 +30,50 @@ namespace LearnLanguageDictionaryWebsite.Controllers
             return View();
         }
 
-        public ActionResult RedirectWhenLanguageChange()
+        // In the front end, they will pass in the value
+        // Home/Language?name=(Hokkien)
+        // Ignore the bracket, that is how you go to different pages :D
+        public ActionResult Language(string Name)
         {
-            switch (SelectedLanguage)
+            switch (Name)
             {
-                case AllAvailableLanguages.English:
-                    return View("Index");
+                case nameof(AllAvailableLanguages.English):
+                    SetSelectedLanguage(AllAvailableLanguages.English);
+                    //HttpContext.Session.SetString("Language", AllAvailableLanguages.Hainanese.ToString());
+                    Debug.Print("HttpContextSession" + HttpContext.Session.GetString("Language"));
+                    return RedirectToAction("Index", "Home");
+                case nameof(AllAvailableLanguages.Hakka):
+                    SetSelectedLanguage(AllAvailableLanguages.Hakka);
+                    return View("../Language/Hakka/Index");
                 default:
                     // Using Relative Path to get into the view
-                    return View("../Language/Hakka/Index");
+                    SetSelectedLanguage(AllAvailableLanguages.Hokkien);
+                    return View("../Language/Hokkien/Index");
             }
         }
 
-        //public ActionResult Language(string language)
+        // For future reference as passing data from frontend to backend using ajax, it is not used for now
+        //[HttpPost]
+        //public JsonResult CategoryChosen([FromBody]string selectedLanguage)
         //{
-        //    if (language.Equals(AllAvailableLanguages.English.ToString()))
+        //    Debug.WriteLine(selectedLanguage.ToString());
+        //    // The enum will try to convert the string from the form to the AllAvailableLanguagesEnum
+        //    // If the Enum failed, it won't do anything which it shouldn't happens
+        //    if (Enum.TryParse(selectedLanguage.ToString(), out AllAvailableLanguages selectedLanguageEnum))
         //    {
-
+        //        Console.WriteLine("Successfulll");
+        //        SetSelectedLanguage(selectedLanguageEnum);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Failed");
         //    }
 
-        //    switch (language)
-        //    {
-        //        case "AHHH":
-        //            break;
+        //    // RedirectToRoute("About", "Home");
 
-        //        case AllAvailableLanguages.English.ToString():
-        //            return View("Index");
-        //        default:
-        //            // Using Relative Path to get into the view
-        //            return View("../Language/Hakka/Index");
-        //    }
+        //    // Depending
+        //    return Json(selectedLanguage);
         //}
-
-        [HttpPost]
-        public JsonResult CategoryChosen([FromBody]string selectedLanguage)
-        {
-            Debug.WriteLine(selectedLanguage.ToString());
-            // The enum will try to convert the string from the form to the AllAvailableLanguagesEnum
-            // If the Enum failed, it won't do anything which it shouldn't happens
-            if (Enum.TryParse(selectedLanguage.ToString(), out AllAvailableLanguages selectedLanguageEnum))
-            {
-                Console.WriteLine("Successfulll");
-                SetSelectedLanguage(selectedLanguageEnum);
-            }
-            else
-            {
-                Console.WriteLine("Failed");
-            }
-
-            // RedirectToRoute("About", "Home");
-
-            // Depending
-            return Json(selectedLanguage);
-        }
 
         public IActionResult Privacy()
         {

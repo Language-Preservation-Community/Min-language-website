@@ -65,9 +65,11 @@
         function CallChangeLanguage(value) {
             // Ajax is a way to pass information from frontend to backend
             // Is not hard at all, don't get scared by the numbers of lines it have
-            console.log("Pass through function!\nValue: "+ value);
-
-            var selectedLanguage = { "selectedLanguage": value };
+            console.log("Pass through function!\nValue: " + value);
+            var url = "@Url.Action("Language", "Home")" + "?name=" + value;
+            window.location = url;
+            
+            @*var selectedLanguage = { "selectedLanguage": value };
             console.log("\nValue: " + selectedLanguage);
             $.ajax({
                 contentType: "application/json;charset=utf-8",
@@ -84,7 +86,7 @@
                 error: function (e) {
                     alert( "Error Happened" + e.responsetext);
                 }
-            })
+            })*@
         };
     </script>
 
