@@ -1,4 +1,5 @@
-﻿using LearnLanguagesDictionaryWebsite.Models;
+﻿using LearnLanguageDictionaryWebsite.Data;
+using LearnLanguagesDictionaryWebsite.Models;
 using LearnLanguagesDictionaryWebsite.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,27 +11,60 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
 {
     public class DictionaryController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
         // Constructor
-        public DictionaryController()
+        public DictionaryController(ApplicationDbContext context)
         {
-            var dictionary = new DictionaryModel();
+            // var dictionary = new DictionaryModel();
+            _context = context;
         }
 
         // We show the list of dictionaries we have
         public IActionResult Index()
         {
+            return View(_context.DictionaryModel.ToList());
+        }
+
+        // Just a test on putting an own made model to make sure it display
+        public IActionResult Random()
+        {
             // the code below is just for testing
-            var dictionary = new DictionaryModel();
+            var dictionary = new DictionaryModel() { 
+                LanguageName = AllAvailableLanguages.Hokkien.ToString()
+            };
 
+            var allRegions = new List<RegionModel>() { 
+                new RegionModel() { RegionName="RegionA" }, 
+                new RegionModel() {RegionName= "RegionB" }, 
+                new RegionModel() {RegionName="RegionC" } };
 
-            var vocabularyA = new VocabularyModel() { EnglishMeaning = "VocabA"};
-            var vocabularyB = new VocabularyModel();
+            var regionalPronunciationA = new List<RegionalPronunciationModel>();
+            var regionalPronunciationB = new List<RegionalPronunciationModel>();
+
+            var wordCategoryA = new List<CategoryModel>() { new CategoryModel() { Category = "verb" } };
+            var wordCategoryB = new List<CategoryModel>() { new CategoryModel() { Category = "adjective" } };
+
+            // Regional Pronunciation for vocab A
+            for (int i=0; i< allRegions.Count; i++ )
+            {
+                regionalPronunciationA.Add(new RegionalPronunciationModel() { Hanji = "哭", Pronunciation="khau"+i });
+                regionalPronunciationB.Add(new RegionalPronunciationModel() { Hanji = "哭", Pronunciation = "hau" + i*2 });
+            }
+
+            var vocabularyA = new VocabularyModel() 
+            { AdditionalNote = "", EnglishMeaning = "VocabA", ExampleSentences = "哭父，恁父母無共汝是毋是?", AllRegion = allRegions, WordCategory = wordCategoryA, RegionalWords = regionalPronunciationA};
+            var vocabularyB = new VocabularyModel() 
+            { AdditionalNote = "", EnglishMeaning ="VocabB", ExampleSentences= "伊个頭毛足歹看", AllRegion=allRegions, WordCategory = wordCategoryB, RegionalWords= regionalPronunciationB};
 
             var vocabularyList = new List<VocabularyModel>();
 
-            dictionary.Dictionaries.Add(AllAvailableLanguages.Hokkien.ToString(), vocabularyList);
+            vocabularyList.Add(vocabularyA);
+            vocabularyList.Add(vocabularyB);
 
-            return View();
+            dictionary.VocabulariesList = vocabularyList;
+
+            return View("ViewDictionary" , dictionary);
         }
 
         // Viewing all the dictionary

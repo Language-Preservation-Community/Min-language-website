@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,11 +12,16 @@ namespace LearnLanguagesDictionaryWebsite.Models
     // Teochew, Vocabs (likes, you, me) with regional pronunciations
     public class DictionaryModel
     {
-        //public string LanguageName;
+        [Key]
+        public int Key { get; set; }
+
+        // The language name of the dictionary
+        // We can't use dictionary containers since we need to parse it to SQL
+        public string LanguageName { get; set; }
 
         // The name of the language will be the key
         // And each language will have list of vocabulary
         // When User selects Teochew, the function will try to grab Teochew and grab the List of Vocabularies
-        public Dictionary<string, List<VocabularyModel>> Dictionaries;
+        public List<VocabularyModel> VocabulariesList { get; set; }
     }
 }

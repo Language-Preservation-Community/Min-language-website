@@ -12,24 +12,29 @@ namespace LearnLanguagesDictionaryWebsite.Models
     {
         // This is for the Key
         [Key]
-        public int ID;
+        public int Key { get; set; }
 
-        public string EnglishMeaning;
-        public string ExampleSentences;
+        public string EnglishMeaning { get; set; }
+
+        // Word category indicating whether if it is a verb, adjective, human part
+        public List<CategoryModel> WordCategory { get; set; }
+        
+        // Example Sentences in the language not in English
+        public string ExampleSentences { get; set; }
+
+        // This variable will be keeping track all regions, so we can display properly on the view page
+        // If when a user add a new region, it will be added to this list
+        // We will do a check when User Suggest a new vocab and going to be added
+        public List<RegionModel> AllRegion { get; set; }
 
         // In the view, we will have a set of region values to search which will act as a key to the dictionary class
         // If the key contains regional pronunciation, it will be added to the view.
         // If it doesn't, it will leave it blank
         // We won't get any errors, this way
-        public Dictionary<string, RegionalPronunciationModel> RegionalWords;
-
-        // This variable will be keeping track all regions, so we can display properly on the view page
-        // If when a user add a new region, it will be added to this list
-        // We will do a check when User Suggest a new vocab and going to be added
-        public List<string> AllRegion;
+        public List<RegionalPronunciationModel> RegionalWords { get; set; }
 
         // Additional note if the user want to add something to note about for certain words
         // like sentence structure or grammer is different when certain words is used in Ph Hokkien
-        public string AdditionalNote;
+        public string AdditionalNote { get; set; }
     }
 }

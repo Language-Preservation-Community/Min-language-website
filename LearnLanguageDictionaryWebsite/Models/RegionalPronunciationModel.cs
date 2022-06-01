@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,12 +8,14 @@ namespace LearnLanguagesDictionaryWebsite.Models
 {
     public class RegionalPronunciationModel
     {
-        public int ID;
+        [Key]
+        public int ID { get; set; }
         // The Chinese characters responsible for the meaning
-        public string Hanji;
-        public string Pronunciation;
+        public string Hanji { get; set; }
+        public string Pronunciation { get; set; }
 
-
-        public string AudioLink;
+        // The audio link will be in relative path format to the folder of the hosting website instead of
+        // putting the audio directly in database
+        public string AudioLink { get; set; }
     }
 }

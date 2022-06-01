@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using LearnLanguagesDictionaryWebsite.Models;
 
 namespace LearnLanguageDictionaryWebsite.Data
 {
@@ -12,5 +13,6 @@ namespace LearnLanguageDictionaryWebsite.Data
             : base(options)
         {
         }
+        public DbSet<LearnLanguagesDictionaryWebsite.Models.DictionaryModel> DictionaryModel { get; set; }
     }
 }

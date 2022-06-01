@@ -1,0 +1,27 @@
+﻿@model LearnLanguagesDictionaryWebsite.Models.DictionaryModel
+
+@{
+    ViewData["Title"] = "ViewDictionary";
+}
+
+<h1>ViewDictionary</h1>
+
+<table class="table">
+    <caption>@Model.LanguageName</caption>
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.VocabulariesList) {
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Key">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Key">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Key">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
