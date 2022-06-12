@@ -22,11 +22,6 @@ namespace LearnLanguagesDictionaryWebsite.Models
         // Example Sentences in the language not in English
         public string ExampleSentences { get; set; }
 
-        // This variable will be keeping track all regions, so we can display properly on the view page
-        // If when a user add a new region, it will be added to this list
-        // We will do a check when User Suggest a new vocab and going to be added
-        public List<RegionModel> AllRegion { get; set; }
-
         // In the view, we will have a set of region values to search which will act as a key to the dictionary class
         // If the key contains regional pronunciation, it will be added to the view.
         // If it doesn't, it will leave it blank

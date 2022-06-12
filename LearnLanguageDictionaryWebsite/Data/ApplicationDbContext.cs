@@ -14,5 +14,6 @@ namespace LearnLanguageDictionaryWebsite.Data
         {
         }
         public DbSet<LearnLanguagesDictionaryWebsite.Models.DictionaryModel> DictionaryModel { get; set; }
+        public DbSet<LearnLanguagesDictionaryWebsite.Models.VocabularyModel> VocabularyModel { get; set; }
     }
 }

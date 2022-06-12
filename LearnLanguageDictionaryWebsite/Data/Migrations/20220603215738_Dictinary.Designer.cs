@@ -4,14 +4,16 @@ using LearnLanguageDictionaryWebsite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearnLanguageDictionaryWebsite.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220603215738_Dictinary")]
+    partial class Dictinary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,15 +63,15 @@ namespace LearnLanguageDictionaryWebsite.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DictionaryModelKey")
-                        .HasColumnType("int");
-
                     b.Property<string>("RegionName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("VocabularyModelKey")
+                        .HasColumnType("int");
+
                     b.HasKey("Key");
 
-                    b.HasIndex("DictionaryModelKey");
+                    b.HasIndex("VocabularyModelKey");
 
                     b.ToTable("RegionModel");
                 });
@@ -335,9 +337,9 @@ namespace LearnLanguageDictionaryWebsite.Data.Migrations
 
             modelBuilder.Entity("LearnLanguagesDictionaryWebsite.Models.RegionModel", b =>
                 {
-                    b.HasOne("LearnLanguagesDictionaryWebsite.Models.DictionaryModel", null)
+                    b.HasOne("LearnLanguagesDictionaryWebsite.Models.VocabularyModel", null)
                         .WithMany("AllRegion")
-                        .HasForeignKey("DictionaryModelKey");
+                        .HasForeignKey("VocabularyModelKey");
                 });
 
             modelBuilder.Entity("LearnLanguagesDictionaryWebsite.Models.RegionalPronunciationModel", b =>

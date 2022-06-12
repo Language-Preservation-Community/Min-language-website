@@ -23,5 +23,10 @@ namespace LearnLanguagesDictionaryWebsite.Models
         // And each language will have list of vocabulary
         // When User selects Teochew, the function will try to grab Teochew and grab the List of Vocabularies
         public List<VocabularyModel> VocabulariesList { get; set; }
+
+        // This variable will be keeping track all regions, so we can display properly on the view page
+        // If when a user add a new region, it will be added to this list
+        // We will do a check when User Suggest a new vocab and going to be added
+        public List<RegionModel> AllRegion { get; set; }
     }
 }

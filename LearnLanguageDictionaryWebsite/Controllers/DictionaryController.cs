@@ -2,6 +2,7 @@
 using LearnLanguagesDictionaryWebsite.Models;
 using LearnLanguagesDictionaryWebsite.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,32 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private List<DictionaryModel> dictionaryList;
+
         // Constructor
         public DictionaryController(ApplicationDbContext context)
         {
             // var dictionary = new DictionaryModel();
             _context = context;
+
+            dictionaryList = _context.DictionaryModel
+                .Include(x => x.AllRegion)
+                .Include(x => x.VocabulariesList)
+                .ThenInclude(y => y.RegionalWords)
+                .Include(x => x.VocabulariesList)
+                .ThenInclude(x => x.WordCategory).ToList();
         }
 
         // We show the list of dictionaries we have
         public IActionResult Index()
         {
+            List<DictionaryModel> ListOfDictionaries = _context.DictionaryModel.ToList();
+
+            if (ListOfDictionaries.Count == 0)
+            {
+
+            }
+
             return View(_context.DictionaryModel.ToList());
         }
 
@@ -39,6 +56,8 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
                 new RegionModel() {RegionName= "RegionB" }, 
                 new RegionModel() {RegionName="RegionC" } };
 
+            dictionary.AllRegion = allRegions;
+
             var regionalPronunciationA = new List<RegionalPronunciationModel>();
             var regionalPronunciationB = new List<RegionalPronunciationModel>();
 
@@ -53,9 +72,9 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
             }
 
             var vocabularyA = new VocabularyModel() 
-            { AdditionalNote = "", EnglishMeaning = "VocabA", ExampleSentences = "哭父，恁父母無共汝是毋是?", AllRegion = allRegions, WordCategory = wordCategoryA, RegionalWords = regionalPronunciationA};
+            { AdditionalNote = "", EnglishMeaning = "VocabA", ExampleSentences = "哭父，恁父母無共汝是毋是?", WordCategory = wordCategoryA, RegionalWords = regionalPronunciationA};
             var vocabularyB = new VocabularyModel() 
-            { AdditionalNote = "", EnglishMeaning ="VocabB", ExampleSentences= "伊个頭毛足歹看", AllRegion=allRegions, WordCategory = wordCategoryB, RegionalWords= regionalPronunciationB};
+            { AdditionalNote = "", EnglishMeaning ="VocabB", ExampleSentences= "伊个頭毛足歹看", WordCategory = wordCategoryB, RegionalWords= regionalPronunciationB};
 
             var vocabularyList = new List<VocabularyModel>();
 
@@ -64,28 +83,135 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
 
             dictionary.VocabulariesList = vocabularyList;
 
-            return View("ViewDictionary" , dictionary);
+            DictionaryModel dictionaryToPass = _context.DictionaryModel.Find(1);
+
+            if (dictionaryToPass != null)
+            {
+                _context.DictionaryModel.Remove(dictionaryToPass);
+                
+                // _context.SaveChanges();
+            }
+
+            dictionaryToPass = _context.DictionaryModel.Find(1);
+
+            if (dictionaryToPass == null)
+            {
+                _context.DictionaryModel.Add(dictionary);
+                _context.SaveChanges();
+            }
+
+            var ehhh = _context.DictionaryModel
+                .Include(x => x.AllRegion)
+                .Include(x => x.VocabulariesList)
+                .ThenInclude(y => y.RegionalWords).ToList();
+
+            dictionaryToPass = ehhh.FirstOrDefault(x => x.LanguageName == dictionary.LanguageName);
+
+            var ahh = _context.DictionaryModel.Select(x => x.VocabulariesList);
+            
+
+            return View("ViewDictionary" , dictionaryToPass);
         }
 
         // Viewing all the dictionary
         // We might not need this
         public ActionResult ViewDictionary(string language)
         {
-            return View();
+            //var dictionaryList = _context.DictionaryModel
+            //    .Include(x => x.AllRegion)
+            //    .Include(x => x.VocabulariesList)
+            //    .ThenInclude(y => y.RegionalWords)
+            //    .Include(x => x.VocabulariesList)
+            //    .ThenInclude(x => x.WordCategory).ToList();
+            
+            var dictionaryToPass = dictionaryList.FirstOrDefault(x => x.LanguageName == language);
+
+            return View("ViewDictionary", dictionaryToPass);
         }
 
         // Viewing the vocabs
         // This will lead to each individual vocabs
         // We only need the key to reach the ID
-        public ActionResult ViewDictionary(string language, int id)
+        public ActionResult ViewVocabulary(string language, int id)
         {
-            return View();
+            var dictionaryToPass = dictionaryList.FirstOrDefault(x => x.LanguageName == language);
+
+            VocabularyModel vocabulary = dictionaryToPass.VocabulariesList.Single(x => x.Key == id);
+
+            return View("ViewDictionary", vocabulary);
         }
+
+        // 
+        public ActionResult EditDictionary(string language, int id)
+        {
+
+            // Check whether there are a new region
+            var dictionaryToPass = dictionaryList.FirstOrDefault(x => x.LanguageName == language);
+
+            VocabularyModel vocabulary = dictionaryToPass.VocabulariesList.Single(x => x.Key == id);
+
+            return View("ViewDictionary", vocabulary);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateVocabulary(string language, VocabularyModel vocabulary)
+        {
+            // Check whether there are a new region
+            var dictionaryToEdit = dictionaryList.FirstOrDefault(x => x.LanguageName == language);
+
+            // Check whether it has a new region
+            dictionaryToEdit.VocabulariesList.Add(vocabulary);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(dictionaryToEdit);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                }
+            }
+
+            return View("ViewDictionary", vocabulary);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditVocabulary(int id, VocabularyModel vocabulary)
+        {
+            if (id != vocabulary.Key)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(vocabulary);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                }
+            }
+
+            return View("ViewDictionary", vocabulary);
+        }
+
 
         // Searching the Dictionary
         // Dictionary/language?=Hokkien+englishMeaning?=Default+hanji?=Default+?pronunciation=?ah1
+        // The logic should be wrapped in Services but doing it here will do for now
         public ActionResult SearchDictionary(string language, string englishMeaning, string hanji, string pronunciation)
         {
+            List<VocabularyModel> vocabulariesList = new List<VocabularyModel>();
+
             if (!String.IsNullOrEmpty(englishMeaning))
             {
 

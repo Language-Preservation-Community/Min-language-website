@@ -17,7 +17,7 @@ namespace LearnLanguagesDictionaryWebsite.Services
         Cantonese,
         Hinghwa,
         Hokchew,
-        Shanghainese
+        Shanghainese,
     }
 
     // Most of the function have to be static because it will be shared between controllers and the views
