@@ -34,6 +34,7 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
             }
 
             var vocabularyModel = await _context.VocabularyModel
+                .Include("RegionalWords")
                 .FirstOrDefaultAsync(m => m.Key == id);
             if (vocabularyModel == null)
             {

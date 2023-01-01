@@ -29,6 +29,46 @@
             @Html.DisplayFor(model => model.AdditionalNote)
         </dd>
     </dl>
+    Regional pronunciations
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegionalWords.FirstOrDefault().Hanji)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegionalWords.FirstOrDefault().Pronunciation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegionalWords.FirstOrDefault().AudioLink)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+@foreach (var item in Model.RegionalWords) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hanji)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pronunciation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AudioLink)
+                </td>
+                <td>
+                    <a asp-controller="RegionalPronunciation" asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-controller="RegionalPronunciation" asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-controller="RegionalPronunciation" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+}
+        </tbody>
+    </table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Key">Edit</a> |
