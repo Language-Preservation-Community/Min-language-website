@@ -11,7 +11,7 @@
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(model => model.VocabulariesList[0].EnglishMeaning)</th>
-            <th>Example Sentences </th>
+            <th>Example Sentences</th>
         </tr>
     </thead>
     <tbody>
@@ -19,10 +19,13 @@
 @foreach (var item in Model.VocabulariesList) {
         <tr>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Key">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Key">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Key">Delete</a>\
+                <a asp-controller="Vocabulary" asp-action="Edit" asp-route-id="@item.Key">Edit</a> |
+                <a asp-controller="Vocabulary" asp-action="Details" asp-route-id="@item.Key">Details</a> |
+                <a asp-controller="Vocabulary" asp-action="Delete" asp-route-id="@item.Key">Delete</a>
                 <p>@item.EnglishMeaning</p>
+            </td>
+            <td>
+                @item.ExampleSentences
             </td>
         </tr>
 }

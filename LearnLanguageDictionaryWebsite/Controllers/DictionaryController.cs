@@ -113,9 +113,9 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
             return View("ViewDictionary" , dictionaryToPass);
         }
 
-        // Viewing all the dictionary
+        // Viewing all vocab in a dictionary
         // We might not need this
-        public ActionResult ViewDictionary(string language)
+        public ActionResult ViewDictionary(int id)
         {
             //var dictionaryList = _context.DictionaryModel
             //    .Include(x => x.AllRegion)
@@ -123,8 +123,9 @@ namespace LearnLanguagesDictionaryWebsite.Controllers
             //    .ThenInclude(y => y.RegionalWords)
             //    .Include(x => x.VocabulariesList)
             //    .ThenInclude(x => x.WordCategory).ToList();
-            
-            var dictionaryToPass = dictionaryList.FirstOrDefault(x => x.LanguageName == language);
+
+            var dictionaryToPass = _context.DictionaryModel
+                .FirstOrDefault(m => m.Key == id);
 
             return View("ViewDictionary", dictionaryToPass);
         }
